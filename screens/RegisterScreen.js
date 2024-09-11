@@ -1,68 +1,72 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image, StatusBar } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const LoginScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    console.log("Login button pressed!!!");
-    if (username === 'user' && password === 'password') {
-      navigation.navigate('Home');
-    } else {
-      Alert.alert('Login Failed', 'Invalid username or password');
-    }
+  const handleRegister = () => {
+    // Add your registration logic here
+    console.log('Register button clicked');
+    console.log('Username:', username);
+    console.log('Password:', password);
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar 
-        barStyle="light-content"      // Light text color
-        backgroundColor="#2980b9"    // Background color (Android only)
-        translucent={false}          // Make the status bar opaque
-      />
+      {/* Image Logo */}
       <Image
-        source={require('../assets/app_logo.png')}
+        source={require('../assets/app_logo.png')}  // Replace with your image path
         style={styles.logoImage}
         resizeMode="contain"
       />
 
       <View style={styles.inputContainer}>
         <Icon name="user" size={20} color="#aaa" style={styles.icon} />
-        <TextInput 
+        <TextInput
           style={styles.input}
           placeholder="Username"
           placeholderTextColor="#aaa"
           value={username}
-          onChangeText={setUsername}
+          onChangeText={(text) => setUsername(text)}
         />
       </View>
 
       <View style={styles.inputContainer}>
         <Icon name="lock" size={20} color="#aaa" style={styles.icon} />
-        <TextInput 
+        <TextInput
           style={styles.input}
           placeholder="Password"
           placeholderTextColor="#aaa"
           secureTextEntry={true}
           value={password}
-          onChangeText={setPassword}
+          onChangeText={(text) => setPassword(text)}
         />
       </View>
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
+      <View style={styles.inputContainer}>
+        <Icon name="lock" size={20} color="#aaa" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          placeholderTextColor="#aaa"
+          secureTextEntry={true}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+        <Text style={styles.registerButtonText}>Register</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.registerText}>Register Here</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.loginText}>Already have an account? Login here</Text>
       </TouchableOpacity>
 
       <Text style={styles.credText}>@2024 Kazervant Technologies. All Rights Reserved</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
   },
-  loginButton: {
+  registerButton: {
     width: '40%',
     height: 50,
     borderRadius: 25,
@@ -104,11 +108,11 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     backgroundColor: 'transparent',
   },
-  loginButtonText: {
+  registerButtonText: {
     color: 'white',
     fontSize: 18,
   },
-  registerText: {
+  loginText: {
     color: 'white',
     marginTop: 20,
     fontSize: 16,
@@ -123,4 +127,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default RegisterScreen;
